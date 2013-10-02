@@ -27,7 +27,20 @@ set $r0+=1
 end
 
 restore USART.txt binary USART
-echo output string:
-x/s str
-echo USART data :
-x/s USART
+printf "output string: %s", str
+printf "USART contents: %s",USART
+
+set $r0=0
+while (*(str+$r0)!='\0' && *(USART+$r0)!='\0')
+if(*(str+$r0)!=*(USART+$r0))
+loop_break
+end
+set $r0+=1
+end
+
+if(*(str+$r0)==*(USART+$r0))
+printf "The contents of USART and the output string are the same.\n"
+else
+printf "The contents of USART is different from the output string.\n"
+end
+
