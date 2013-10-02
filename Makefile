@@ -42,6 +42,7 @@ qemudbg: main.bin
 gdbauto: main.bin
 	$(QEMU_STM32) -M stm32-p103 \
 		-gdb tcp::3333 -S \
+		-serial file:USART.txt \
 		-kernel main.bin -monitor null &
 	$(CROSS_COMPILE)gdb -x gdb.in
 
@@ -50,3 +51,4 @@ emu: main.bin
 
 clean:
 	rm -f *.elf *.bin *.list
+	pkill -9 qemu-system-arm
