@@ -25,3 +25,9 @@ while(*(str+$r0)!='\0')
 call USART_SendData(USART2, *(str+$r0))
 set $r0+=1
 end
+
+restore USART.txt binary USART
+echo output string:
+x/s str
+echo USART data :
+x/s USART
